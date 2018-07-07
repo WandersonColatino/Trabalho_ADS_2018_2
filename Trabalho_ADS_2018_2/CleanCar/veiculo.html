@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="veiculoModule">
+<head>
+	<meta charset="utf-8">
+	<title>veiculo</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/ui-bootstrap-tpls-0.14.1.min.js"></script>
+	<script src="control/veiculoControl.js"></script>
+</head>
+<body ng-controller="veiculoControl">
+	<div ng-include="'menu.html'"></div>
+	<div class="panel panel-default">
+		
+		        
+    
+		<div class="panel-heading">Cadastro de veiculo</div>
+		<div class="panel-body">
+			<div>
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active">
+			    	<a href="#cadastro" aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+			    </li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="cadastro">					
+			    	<form name="veiculoForm" class="css-form" ng-submit="veiculoForm.$valid && salvar()" novalidate>
+				    	<br>
+						<span ng-repeat="mensagem in mensagens">{{mensagem}}<br></span>
+						<div ng-show="veiculoForm.$submitted">
+						     <div ng-show="veiculoForm.descricao.$error.required">Preencha o descrição</div>
+	      				     <div ng-show="veiculoForm.descricao.$error.minlength">Descrição precisa ter pelo menos 3 caracteres</div>	      				
+	    				</div>    				
+						<br>
+						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
+						<button type="submit" class="btn btn-success">Salvar</button>
+						<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+						<hr/>
+					  <div class="form-group col-md-2">
+					    <label for="exampleInputCodigo">Codigo</label>
+					    <input type="number" disabled="true" class="form-control" ng-model="veiculo.id" placeholder="id">
+					  </div>
+					  
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricao">Descricao</label>
+					    <input type="text" class="form-control" ng-model="veiculo.descricao" name="descricao" placeholder="Insira o descricao"/>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricao">Placa</label>
+					    <input type="text" class="form-control" ng-model="veiculo.placa" name="placa" placeholder="Insira o placa" />
+					  </div>	
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricao">Proprietario</label>
+					    <input type="text" class="form-control" ng-model="veiculo.proprietario" name="proprietario" placeholder="Insira a proprietario"/>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricao">CPF</label>
+					    <input type="text" class="form-control" ng-model="veiculo.cpf" name="cpf" placeholder="Insira o cpf"/>
+					  </div>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="dados">
+				<br>
+				<input type="text" class="form-control" ng-model="criterio" 
+				placeholder="O que voce esta procurando?" /><br>
+			    	<table class="table table-hover">
+			    		<th>Codigo</th><th>Descricao</th><th>Placa</th><th>proprietario</th><th>cpf</th>
+
+			    		<tr ng-repeat="veiculoTabela in veiculos | filter:criterio" ng-click="seleciona(veiculoTabela);">
+			    			<td>{{veiculoTabela.id}}</td><td>{{veiculoTabela.descricao}}
+							</td><td>{{veiculoTabela.placa}}</td><td>{{veiculoTabela.proprietario}}</td>
+							<td>{{veiculoTabela.cpf}}</td>
+			    		</tr>
+					</table>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

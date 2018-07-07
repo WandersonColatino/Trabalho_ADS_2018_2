@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="lavagemModule">
+<head>
+	<meta charset="utf-8">
+	<title>lavagem</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/ui-bootstrap-tpls-0.14.1.min.js"></script>
+	<script src="control/lavagemControl.js"></script>
+</head>
+<body ng-controller="lavagemControl">
+	<div ng-include="'menu.html'"></div>
+	<div class="panel panel-default">
+		
+		        
+    
+		<div class="panel-heading">Cadastro de lavagem</div>
+		<div class="panel-body">
+			<div>
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active">
+			    	<a href="#cadastro" aria-controls="cadastro" role="tab" data-toggle="tab">Cadastro</a>
+			    </li>
+			    <li role="presentation">
+			    	<a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+			    </li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="cadastro">					
+			    	<form name="lavagemForm" class="css-form" ng-submit="lavagemForm.$valid && salvar()" novalidate>
+				    	<br>
+						<span ng-repeat="mensagem in mensagens">{{mensagem}}<br></span>
+						<div ng-show="lavagemForm.$submitted">
+						     <div ng-show="lavagemForm.descricao.$error.required">Preencha o descrição</div>
+	      				     <div ng-show="lavagemForm.descricao.$error.minlength">Descrição precisa ter pelo menos 3 caracteres</div>	      				
+	    				</div>    				
+						<br>
+						<button type="button" class="btn btn-info" ng-click="novo()">Novo</button>
+						<button type="submit" class="btn btn-success">Salvar</button>
+						<button type="button" class="btn btn-danger" ng-click="excluir()">Excluir</button>
+						<hr/>
+					 <div class="form-group col-md-2">
+					    <label for="exampleInputCodigo">Codigo</label>
+					    <input type="number" disabled="true" class="form-control" ng-model="lavagem.codigo" placeholder="Codigo">
+					  </div>
+					  
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricaolavagem">Veiculo</label>
+					   <select ng-model="lavagem.veiculo" name="lavagem.veiculo" class="u-full-width form-control"
+                        ng-options="veiculo as veiculo.descricao for veiculo in veiculos track by veiculo.id"></select>
+					  </div>	
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricaolavagem">Estabelecimento</label>
+					   <select ng-model="lavagem.estabelecimento" name="lavagem.estabelecimento" class="u-full-width form-control"
+                        ng-options="estabelecimento as estabelecimento.nome for estabelecimento in estabelecimentos track by estabelecimento.id"></select>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricaolavagem">Data</label>
+					    <input type="date" class="form-control" ng-model="lavagem.data" name="data" />
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="exampleInputdescricaolavagem">Valor</label>
+					    <input type="text" class="form-control" ng-model="lavagem.valor" name="valor" placeholder=""/>
+					  </div>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="dados">
+				<br>
+				<input type="text" class="form-control" ng-model="criterio" 
+				placeholder="O que voce esta procurando?" /><br>
+			    	<table class="table table-hover">
+			    		<th>Codigo</th><th>lavagem</th><th>Estabelecimento</th><th>Data</th><th>Valor</th>
+
+			    		<tr ng-repeat="lavagemTabela in lavagems | filter:criterio" ng-click="seleciona(lavagemTabela);">
+			    			<td>{{lavagemTabela.id}}</td><td>{{lavagemTabela.veiculo.descricao}}
+							</td><td>{{lavagemTabela.estabelecimento.nome}}</td><td>{{lavagemTabela.data |date:'dd/MM/yyyy'}}</td>
+							<td>{{lavagemTabela.valor}}</td>
+			    		</tr>
+					</table>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

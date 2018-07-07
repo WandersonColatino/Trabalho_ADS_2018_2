@@ -1,0 +1,6 @@
+br\edu\iftm\Extensao\domain\Projeto.class
+br\edu\iftm\Extensao\facade\ws\PessoaFacade.class
+br\edu\iftm\Extensao\dao\PessoaDao.class
+br\edu\iftm\Extensao\facade\rs\PessoaFacade.class
+br\edu\iftm\Extensao\facade\rs\RestApplication.class
+br\edu\iftm\Extensao\domain\Pessoa.class
